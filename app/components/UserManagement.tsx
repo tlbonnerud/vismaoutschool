@@ -4,10 +4,9 @@ import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 
 interface User {
-	id: number
-	name: string
+	user_id: number
+	user_name: string
 	email: string
-	created_at: string
 }
 
 export default function UserManagement() {
@@ -24,8 +23,10 @@ export default function UserManagement() {
 			setLoading(true)
 			setError(null)
 			const { data, error: fetchError } = await supabase
-				.from('users')
-				.select('*')
+				.from('Users')
+				.select('user_id, user_name, email')
+
+			console.log(data)
 
 			if (fetchError) throw fetchError
 			setUsers(data || [])
@@ -46,24 +47,30 @@ export default function UserManagement() {
 			return
 		}
 
+		console.log("testign start")
 		try {
 			setLoading(true)
 			setError(null)
 			setSuccess(null)
 
-			const { error: insertError } = await supabase
-				.from('users')
-				.insert([{ name: name.trim(), email: email.trim() }])
-				.select()
+			// fix this to match your table structur	
 
+			const { error: insertError } = await supabase
+				.from('Users')
+				.insert([{ user_name: name.trim(), email: email.trim() }])
+
+			console.log("testign fart")
 			if (insertError) throw insertError
+			console.log("testign fart")
 
 			setSuccess('User added successfully!')
 			setName('')
 			setEmail('')
 
+			console.log("testign fart")
 			// Refresh the user list
 			await fetchUsers()
+			console.log("testign end")
 		} catch (err) {
 			setError(err instanceof Error ? err.message : 'Failed to add user')
 			console.error('Error adding user:', err)
@@ -167,21 +174,18 @@ export default function UserManagement() {
 					<div className="space-y-3">
 						{users.map((user) => (
 							<div
-								key={user.id}
+								key={user.user_id}
 								className="p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm"
 							>
 								<div className="flex justify-between items-start">
 									<div>
 										<h4 className="font-semibold text-gray-900 dark:text-white">
-											{user.name}
+											{user.user_name}
 										</h4>
 										<p className="text-sm text-gray-600 dark:text-gray-400">
 											{user.email}
 										</p>
 									</div>
-									<span className="text-xs text-gray-500 dark:text-gray-500">
-										{new Date(user.created_at).toLocaleDateString()}
-									</span>
 								</div>
 							</div>
 						))}
