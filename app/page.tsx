@@ -1,10 +1,21 @@
 'use client'
+
 import { useEffect } from 'react';
+import checkAuth from '@/lib/checkAuth';
 
 export default function Home() {
+
 	useEffect(() => {
-		document.cookie = `sb-session=test-session-token; path=/; max-age=3600;`;
-		window.location.href = '/admin';
+		const cookies = document.cookie.split('; ').reduce((acc, curr) => {
+			const [key, ...v] = curr.split('=');
+			acc[key] = v.join('=');
+			return acc;
+		}, {} as { [key: string]: string });
+
+		if (checkAuth(cookies)) {
+			window.location.href = '/admin';
+		}
+
 	}, []);
 
 	return (
@@ -15,12 +26,6 @@ export default function Home() {
 					Welcome to Visma Outschool
 				</h1>
 			</main>
-
-			{
-				// temporary button to simulate login by setting cookie
-				// document is not defined?
-
-			}
 
 			<button
 				onClick={() => {
