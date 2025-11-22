@@ -1,4 +1,3 @@
-// handle login logic based on method this is the backend
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 
@@ -12,12 +11,18 @@ export async function POST(request: NextRequest) {
 	});
 
 	if (error) {
-		return NextResponse.json({ message: error.message }, { status: 401 });
+		return NextResponse.json({ error: error.message }, { status: 401 });
+	} else {
+
+		const response = NextResponse.json({ user: data.user });
+		response.cookies.set('sb-session', data.session?.access_token || '', {
+			httpOnly: true,
+			secure: process.env.NODE_ENV === 'production',
+			sameSite: 'lax',
+
+		});
+
+		return response;
 	}
-
-	return NextResponse.json({ user: data.user });
-
-
 }
-
 

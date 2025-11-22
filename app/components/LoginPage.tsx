@@ -17,8 +17,7 @@ const LoginPage = () => {
 		}
 
 		try {
-			// Replace with your actual API call to the backend for authentication
-			const response = await fetch('@/app/lib/login.ts', {
+			const response = await fetch('@/lib/login', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -26,6 +25,7 @@ const LoginPage = () => {
 				body: JSON.stringify({ email, password }),
 			});
 
+			// Replace with your act
 			if (!response.ok) {
 				const errorData = await response.json();
 				throw new Error(errorData.message || 'Login failed');
