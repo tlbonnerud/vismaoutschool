@@ -1,34 +1,71 @@
-import { NextResponse } from 'next/server';
+'use server';
+
 import { supabase } from '@/lib/supabase';
 
-interface User {
-   email: string;
-   password: string;
-}
+type LoginResult = {
+   success: boolean;
+   message: string;
+   user?: any;
+   status: number;
+   debug?: any; // Remove this after debugging
+};
 
-export async function loginUser(request: { json: () => Promise<User> }) {
+export async function loginUser(credentials: { email: string; password: string }): Promise<LoginResult> {
+   const { email, password } = credentials;
 
-   const { email, password } = await request.json();
+   if (!email || !password) {
+      return {
+         success: false,
+         message: 'Missing email or password',
+         status: 400
+      };
+   }
 
-   // query database for user with matching email and password
-   const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
+   // First, let's check if the user exists
+   const { data: userCheck, error: checkError } = await supabase
+      .from('Users')
+      .select('*')
+      .eq('email', email);
+
+   console.log('User lookup result:', {
+      found: userCheck?.length,
+      error: checkError,
+      columns: userCheck?.[0] ? Object.keys(userCheck[0]) : 'No user found'
    });
 
-   if (error) {
-      return NextResponse.json({ error: error.message }, { status: 401 });
-   } else {
+   // Now check with password
+   const { data, error } = await supabase
+      .from('Users')
+      .select('*')
+      .eq('email', email)
+      .eq('password', password)
+      .single();
 
-      const response = NextResponse.json({ user: data.user });
-      response.cookies.set('sb-session', data.session?.access_token || '', {
-         httpOnly: true,
-         secure: process.env.NODE_ENV === 'production',
-         sameSite: 'lax',
+   console.log('Login attempt result:', {
+      success: !!data,
+      error: error?.message,
+      errorCode: error?.code
+   });
 
-      });
-
-      return response;
+   if (error || !data) {
+      return {
+         success: false,
+         message: userCheck?.length === 0
+            ? 'User not found'
+            : 'Invalid email or password',
+         status: 401,
+         debug: {
+            userExists: userCheck?.length > 0,
+            errorCode: error?.code,
+            errorMessage: error?.message
+         }
+      };
    }
-}
 
+   return {
+      success: true,
+      message: 'Login successful',
+      user: data,
+      status: 200
+   };
+}
