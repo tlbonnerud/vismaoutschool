@@ -25,7 +25,7 @@ export default function Home() {
             <>
                <LoginPage />
                <p className="mt-4 text-center text-gray-600 dark:text-gray-400">
-                  Don't have an account?{' '}
+                  {"Don't have an account?"}{' '}
                   <button
                      onClick={handleToggleView}
                      className="text-blue-500 hover:underline"
