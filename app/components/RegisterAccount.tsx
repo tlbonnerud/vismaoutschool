@@ -15,6 +15,11 @@ const RegisterAccount: React.FC<RegisterAccountProps> = ({ onRegister }) => {
       e.preventDefault();
       registerUser(username, email, password);
       onRegister(username, password);
+
+      // wait 1 second then redirect to login page
+      setTimeout(() => {
+         window.location.href = '/';
+      }, 1000);
    };
 
    return (

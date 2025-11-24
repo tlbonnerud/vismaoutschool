@@ -34,7 +34,6 @@ const LoginPage = () => {
          }
 
          // Set cookie with user session
-
          document.cookie = `sb-session=test-session-token; path=/; max-age=3600;`;
          // Redirect to admin page
          window.location.href = '/admin';

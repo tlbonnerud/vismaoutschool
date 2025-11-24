@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import checkAuth from '@/lib/checkAuth';
-import LoginPage from '@/app/components/LoginPage';
+import HomePage from '@/app/components/front-page';
 
 export default function Home() {
 
@@ -22,14 +22,8 @@ export default function Home() {
    return (
       <div className="min-h-screen bg-zinc-50 dark:bg-black py-12 px-4">
 
-         <main className="container mx-auto">
-            <h1 className="text-4xl font-bold text-center mb-8 text-gray-900 dark:text-white">
-               Welcome to Visma Outschool
-            </h1>
-         </main>
+         <HomePage />
 
-         <LoginPage />
-
-      </div>
+      </div >
    );
 }
