@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import checkAuth from '@/lib/checkAuth';
-import HomePage from '@/app/components/front-page';
+import HomePage from '@/app/components/homePage';
 
 export default function Home() {
 
