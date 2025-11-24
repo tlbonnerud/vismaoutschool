@@ -16,5 +16,5 @@ export async function registerUser(user_name: string, email: string, password: s
       throw new Error(error.message)
    }
 
-   return { message: 'User added successfully', user: data } 
+   return { message: 'User added successfully', user: data }
 }

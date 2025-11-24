@@ -9,12 +9,14 @@ interface User {
    user_id: number
    user_name: string
    email: string
+   password: string
 }
 
 export default function UserManagement() {
    const [users, setUsers] = useState<User[]>([])
    const [name, setName] = useState('')
    const [email, setEmail] = useState('')
+   const [password, setPassword] = useState('')
    const [loading, setLoading] = useState(false)
    const [error, setError] = useState<string | null>(null)
    const [success, setSuccess] = useState<string | null>(null)
@@ -37,7 +39,7 @@ export default function UserManagement() {
       e.preventDefault()
       try {
          setLoading(true)
-         await addUser(name, email)
+         await addUser(name, email, password)
          setSuccess('User added successfully!')
          setName('')
          setEmail('')
@@ -115,6 +117,21 @@ export default function UserManagement() {
                />
             </div>
 
+            <div>
+               <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Password
+               </label>
+               <input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter password"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white"
+                  disabled={loading}
+               />
+            </div>
+
             <button
                type="submit"
                disabled={loading}
@@ -174,6 +191,8 @@ export default function UserManagement() {
                               <p className="text-sm text-gray-600 dark:text-gray-400">
                                  {user.email}
                               </p>
+                              <p className="text-sm text-gray-600 dark:text-gray-400">
+                                 Password: {user.password}</p>
                            </div>
 
                            <button

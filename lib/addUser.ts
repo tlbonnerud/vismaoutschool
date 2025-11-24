@@ -2,14 +2,14 @@
 
 import { supabase } from '@/lib/supabase'
 
-export async function addUser(user_name: string, email: string) {
+export async function addUser(user_name: string, email: string, password: string) {
    if (!user_name || !email) {
       throw new Error('Missing user_name or email')
    }
 
    const { data, error } = await supabase
       .from('Users')
-      .insert([{ user_name, email }])
+      .insert([{ user_name, email, password }])
       .select()
 
    if (error) {

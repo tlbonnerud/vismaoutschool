@@ -1,4 +1,5 @@
 // register account component
+import { registerUser } from '@/lib/register';
 import React, { useState } from 'react';
 
 interface RegisterAccountProps {
@@ -12,6 +13,7 @@ const RegisterAccount: React.FC<RegisterAccountProps> = ({ onRegister }) => {
 
    const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
+      registerUser(username, email, password);
       onRegister(username, password);
    };
 
