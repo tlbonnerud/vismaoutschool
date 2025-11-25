@@ -55,7 +55,7 @@ export async function loginUser(credentials: { email: string; password: string }
             : 'Invalid email or password',
          status: 401,
          debug: {
-            userExists: userCheck?.length > 0,
+            userExists: userCheck?.length != 0,
             errorCode: error?.code,
             errorMessage: error?.message
          }
