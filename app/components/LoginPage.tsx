@@ -34,10 +34,9 @@ const LoginPage = () => {
          }
 
          // Set cookie with user session
-
-         document.cookie = `sb-session=test-session-token; path=/; max-age=3600;`;
-         // Redirect to admin page
-         window.location.href = '/admin';
+         document.cookie = `sb-session=sb-session; path=/; max-age=3600;`;
+         // Redirect to home page
+         window.location.href = '/';
 
       } catch (err: any) {
          setError(err.message || 'An unexpected error occurred');

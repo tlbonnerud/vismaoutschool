@@ -1,22 +1,25 @@
 'use client';
+
 import { useEffect } from "react";
 import UserManagement from "@/app/components/UserManagement";
+import { getCookie } from "@/utils/cookies";
 import checkAuth from "@/lib/checkAuth";
 
 export default function Home() {
 
    useEffect(() => {
-      const cookies = document.cookie.split('; ').reduce((acc, curr) => {
-         const [key, ...v] = curr.split('=');
-         acc[key] = v.join('=');
-         return acc;
-      }, {} as { [key: string]: string });
+      const checkAuthentication = async () => {
+         const sessionCookie = getCookie("sb-session");
+         // const isAuthenticated = await checkAuth(sessionCookie || "");
 
-      if (!checkAuth(cookies)) {
-         window.location.href = '/';
-      }
+         if (!sessionCookie) {
+            window.location.href = "/login";
+         }
+      };
 
+      checkAuthentication();
    }, []);
+
 
    return (
       <div className="min-h-screen bg-zinc-50 dark:bg-black py-12 px-4">
