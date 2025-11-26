@@ -2,12 +2,22 @@
 
 import { loginUser } from '@/lib/login';
 import { useState } from 'react';
+import { getCookie } from '@/utils/cookies';
 
 const LoginPage = () => {
    const [userEmail, setUserEmail] = useState('');
    const [userPassword, setUserPassword] = useState('');
    const [error, setError] = useState('');
    const [isLoading, setIsLoading] = useState(false);
+
+   const cookie = getCookie('sb-session');
+
+   if (cookie) {
+      // If the user is already logged in, redirect to dashboard
+      window.location.href = '/dashboard';
+      return null; // Prevent rendering the login form
+   }
+
 
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -32,6 +42,9 @@ const LoginPage = () => {
          if (!response.success) {
             throw new Error(response.message || 'Login failed');
          }
+
+         // Redirect to home page on successful login
+         window.location.href = '/dashboard';
 
       } catch (err: any) {
          setError(err.message || 'An unexpected error occurred');
