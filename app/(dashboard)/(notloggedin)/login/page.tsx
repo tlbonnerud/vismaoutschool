@@ -2,9 +2,19 @@
 import LoginPage from '@/app/components/LoginPage';
 import RegisterAccount from '@/app/components/RegisterAccount';
 import { useState } from 'react';
+import { getCookie } from '@/utils/cookies';
 
 export default function Home() {
 
+   const cookies = getCookie("sb-session");
+
+   if (cookies) {
+      // If the user is already logged in, redirect to the logged-in home page
+      if (typeof window !== 'undefined') {
+         window.location.href = '/dashboard';
+      }
+      return null; // Return null while redirecting
+   }
    // use usestate to toggle between login and register views
    const [isLoginView, setIsLoginView] = useState(true);
 

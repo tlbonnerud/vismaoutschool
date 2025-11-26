@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import UserManagement from "@/app/components/UserManagement";
 import { getCookie } from "@/utils/cookies";
-import checkAuth from "@/lib/checkAuth";
 
 export default function Home() {
 

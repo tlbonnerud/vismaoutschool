@@ -33,11 +33,6 @@ const LoginPage = () => {
             throw new Error(response.message || 'Login failed');
          }
 
-         // Set cookie with user session
-         document.cookie = `sb-session=sb-session; path=/; max-age=3600;`;
-         // Redirect to home page
-         window.location.href = '/';
-
       } catch (err: any) {
          setError(err.message || 'An unexpected error occurred');
          setIsLoading(false);

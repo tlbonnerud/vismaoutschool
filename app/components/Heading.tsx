@@ -1,17 +1,6 @@
 'use client'
 
-import checkAuth from '@/lib/checkAuth';
 export default function Heading() {
-
-   if (!checkAuth(document.cookie.split('; ').reduce((acc, curr) => {
-      const [key, ...v] = curr.split('=');
-      acc[key] = v.join('=');
-      return acc;
-   }, {} as { [key: string]: string }))) {
-      window.location.href = "/";
-   }
-
-
    return (
       <main className="flex min-h-0.1 flex-col items-center justify-between p-4">
          <h1 className="z-10 w-full max-w-5xl flex flex-row items-center justify-between font-mono text-2xl lg:flex">
@@ -22,14 +11,20 @@ export default function Heading() {
                className="">Home</button>
             <button
                onClick={() => {
-                  window.location.href = "/chats";
+                  window.location.href = "/dashboard/chats";
                }}
                className="">Chats</button>
             <button
                onClick={() => {
-                  window.location.href = "/schools";
+                  window.location.href = "/dashboard/schools";
                }}
                className="">Schools</button>
+            <button
+               onClick={() => {
+                  window.location.href = "/dashboard/profil";
+               }}
+
+               className="">Profil</button>
             <button
                onClick={() => {
                   // remove cookie
