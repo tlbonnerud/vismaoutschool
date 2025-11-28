@@ -4,18 +4,16 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
-// Fix for Leaflet default marker icons
-const DefaultIcon = L.icon({
-   iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-   iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
-   shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+// Fix for Leaflet default marker icons - use bundled assets from node_modules
+const markerIcon = L.icon({
+   iconUrl: '/leaflet/marker-icon.png',
+   iconRetinaUrl: '/leaflet/marker-icon-2x.png',
+   shadowUrl: '/leaflet/marker-shadow.png',
    iconSize: [25, 41],
    iconAnchor: [12, 41],
    popupAnchor: [1, -34],
    shadowSize: [41, 41]
 })
-
-L.Marker.prototype.options.icon = DefaultIcon
 
 // Oslo ungdomsskoler (secondary schools) data
 interface School {
@@ -206,8 +204,8 @@ export default function SchoolMap() {
                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {osloSchools.map((school, index) => (
-               <Marker key={index} position={[school.lat, school.lng]}>
+            {osloSchools.map((school) => (
+               <Marker key={school.name} position={[school.lat, school.lng]} icon={markerIcon}>
                   <Popup>
                      <div className="p-2 min-w-[200px]">
                         <h3 className="font-bold text-lg text-gray-900 mb-2">{school.name}</h3>
