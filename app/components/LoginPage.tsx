@@ -5,102 +5,128 @@ import { useState } from 'react';
 import { getCookie } from '@/utils/cookies';
 
 const LoginPage = () => {
-   const [userEmail, setUserEmail] = useState('');
-   const [userPassword, setUserPassword] = useState('');
-   const [error, setError] = useState('');
-   const [isLoading, setIsLoading] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
+  const [userPassword, setUserPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-   const cookie = getCookie('sb-session');
+  const cookie = getCookie('sb-session');
 
-   if (cookie) {
-      // If the user is already logged in, redirect to dashboard
+  if (cookie) {
+    window.location.href = '/dashboard';
+    return null;
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError('');
+    setIsLoading(true);
+
+    if (!userEmail || !userPassword) {
+      setError('Please enter both email and password.');
+      setIsLoading(false);
+      return;
+    }
+
+    const user = {
+      email: userEmail,
+      password: userPassword,
+    };
+
+    try {
+      const response = await loginUser(user);
+
+      if (!response.success) {
+        throw new Error(response.message || 'Login failed');
+      }
+
       window.location.href = '/dashboard';
-      return null; // Prevent rendering the login form
-   }
+    } catch (err: any) {
+      setError(err.message || 'An unexpected error occurred');
+      setIsLoading(false);
+    }
+  };
 
+  return (
+    <main className="w-screen min-h-screen bg-[#2A2958] flex items-center justify-center overflow-x-hidden">
 
-   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      setError(''); // Clear previous errors
-      setIsLoading(true);
+      {/* DESKTOP FRAME */}
+      <div className="w-[1200px] h-[700px] bg-[#B2F7FF] rounded-[36px] shadow-2xl flex overflow-hidden">
 
-      // Basic client-side validation
-      if (!userEmail || !userPassword) {
-         setError('Please enter both email and password.');
-         setIsLoading(false);
-         return;
-      }
+        {/* LEFT BRAND PANEL */}
+        <div className="w-1/2 bg-[#2A2958] p-14 flex flex-col justify-center">
+          <h1 className="text-5xl font-extrabold text-[#B2F7FF] mb-8">
+            Figma Outschool
+          </h1>
 
-      const user = {
-         email: userEmail,
-         password: userPassword,
-      };
+          <p className="text-lg text-white leading-relaxed mb-10">
+            Welcome to your learning dashboard.  
+            Chat with schools, manage your profile and keep full control of your projects.
+          </p>
 
-      try {
-         const response = await loginUser(user);
+          <div className="w-24 h-[4px] bg-[#B2F7FF] rounded-full" />
+        </div>
 
-         if (!response.success) {
-            throw new Error(response.message || 'Login failed');
-         }
+        {/* RIGHT LOGIN PANEL */}
+        <div className="w-1/2 bg-white p-14 flex items-center justify-center">
+          <div className="w-full max-w-md">
 
-         // Redirect to home page on successful login
-         window.location.href = '/dashboard';
+            <h2 className="text-4xl font-extrabold text-[#2A2958] mb-8 text-center">
+              Login
+            </h2>
 
-      } catch (err: any) {
-         setError(err.message || 'An unexpected error occurred');
-         setIsLoading(false);
-      }
-   };
+            {error && (
+              <div className="mb-6 rounded-lg bg-red-100 text-red-700 px-4 py-3 text-sm text-center">
+                {error}
+              </div>
+            )}
 
-   return (
-      <div className="max-w-md mx-auto bg-white dark:bg-gray-800 p-8 rounded shadow">
-         <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white text-center">
-            Login
-         </h2>
-         {error && (
-            <p className="text-red-500 mb-4 p-3 bg-red-50 dark:bg-red-900/20 rounded">
-               {error}
-            </p>
-         )}
-         <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-               <label className="block text-gray-700 dark:text-gray-300 mb-2" htmlFor="email">
+            <form onSubmit={handleSubmit} className="space-y-6">
+
+              {/* EMAIL */}
+              <div>
+                <label className="block mb-2 font-semibold text-[#2A2958]">
                   Email
-               </label>
-               <input
+                </label>
+                <input
                   type="email"
-                  id="email"
                   value={userEmail}
                   onChange={(e) => setUserEmail(e.target.value)}
-                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300 dark:bg-gray-700 dark:text-white"
-                  required
                   disabled={isLoading}
-               />
-            </div>
-            <div className="mb-6">
-               <label className="block text-gray-700 dark:text-gray-300 mb-2" htmlFor="password">
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2A2958] transition disabled:opacity-60"
+                />
+              </div>
+
+              {/* PASSWORD */}
+              <div>
+                <label className="block mb-2 font-semibold text-[#2A2958]">
                   Password
-               </label>
-               <input
+                </label>
+                <input
                   type="password"
-                  id="password"
                   value={userPassword}
                   onChange={(e) => setUserPassword(e.target.value)}
-                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300 dark:bg-gray-700 dark:text-white"
-                  required
                   disabled={isLoading}
-               />
-            </div>
-            <button
-               type="submit"
-               disabled={isLoading}
-               className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors disabled:bg-blue-300 disabled:cursor-not-allowed"
-            >
-               {isLoading ? 'Logging in...' : 'Login'}
-            </button>
-         </form>
+                  className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2A2958] transition disabled:opacity-60"
+                />
+              </div>
+
+              {/* LOGIN BUTTON */}
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full mt-4 bg-[#2A2958] text-white font-semibold py-3 rounded-xl hover:bg-[#1f1e47] transition-all duration-300 disabled:opacity-60"
+              >
+                {isLoading ? 'Logging in...' : 'Login'}
+              </button>
+            </form>
+
+          </div>
+        </div>
+
       </div>
-   );
+    </main>
+  );
 };
 
 export default LoginPage;
