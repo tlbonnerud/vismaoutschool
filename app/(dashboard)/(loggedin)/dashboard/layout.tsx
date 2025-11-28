@@ -14,8 +14,8 @@ export default function LoggedInLayout({
    const cookies = getCookie("sb-session");
 
    return (
-      <div className="min-h-screen">
-         <main className="container px-4 py-8">
+      <div className="min-h-screen max-w-screen">
+         <main className="container py-8">
             {children}
          </main>
       </div>
