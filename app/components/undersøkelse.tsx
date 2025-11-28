@@ -72,21 +72,33 @@ export default function Undersøkelse() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted', elev);
+    
+    // Hent FormData fra skjemaet
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data: any = {};
+    
+    // Konverter FormData til object
+    for (const [key, value] of formData.entries()) {
+      data[key] = value;
+    }
+    
+    // Kombiner med eksisterende elev data
+    const combinedData = {
+      ...elev,
+      ...data
+    };
+    
+    console.log('Form submitted with all data:', combinedData);
     
     // Her kan du sende data til database senere
-    // await sendSurveyData(elev);
+    // await sendSurveyData(combinedData);
   };
     return (
         <div>
             <h1 className="text-2xl font-bold mb-4">spørre undersøkelse</h1>
             <p>her skal du svare på en spørreunderskelse om skolen din og deg</p>
             
-            <form className="mt-6 space-y-4" onSubmit={(e) => {
-                e.preventDefault();
-                // Handle form submission logic here
-                console.log('Form submitted', elev);
-            }}> 
+            <form className="mt-6 space-y-4" onSubmit={handleSubmit}> 
                 <div>
                     <label className="block text-sm font-medium mb-1" htmlFor="school">Hva heter skolen din?</label>
                     <input 
