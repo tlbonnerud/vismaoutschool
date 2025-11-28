@@ -1,0 +1,442 @@
+[
+  {
+    "name": "Ris ungdomsskole",
+    "address": "Morgedalsvegen 15, 0378 Oslo",
+    "district": "Vestre Aker",
+    "students": "~450",
+    "lat": 59.9443,
+    "lng": 10.7061
+  },
+  {
+    "name": "Hovseter ungdomsskole",
+    "address": "Bærumsveien 323, 0380 Oslo",
+    "district": "Vestre Aker",
+    "students": "~400",
+    "lat": 59.9484,
+    "lng": 10.6398
+  },
+  {
+    "name": "Øraker skole",
+    "address": "Lilleakerveien 49, 0284 Oslo",
+    "district": "Vestre Aker",
+    "students": "~350",
+    "lat": 59.9241,
+    "lng": 10.6468
+  },
+  {
+    "name": "Vinderen skole",
+    "address": "Slemdalsveien 66, 0373 Oslo",
+    "district": "Vestre Aker",
+    "students": "~350",
+    "lat": 59.9498,
+    "lng": 10.7097
+  },
+  {
+    "name": "Majorstuen skole",
+    "address": "Schwensens gate 8, 0370 Oslo",
+    "district": "Frogner",
+    "students": "~600",
+    "lat": 59.9303,
+    "lng": 10.7148
+  },
+  {
+    "name": "Uranienborg skole",
+    "address": "Briskebyveien 7, 0259 Oslo",
+    "district": "Frogner",
+    "students": "~500",
+    "lat": 59.9228,
+    "lng": 10.7174
+  },
+  {
+    "name": "Ruseløkka skole",
+    "address": "Ruseløkkveien 40, 0251 Oslo",
+    "district": "Frogner",
+    "students": "~470",
+    "lat": 59.9173,
+    "lng": 10.7256
+  },
+  {
+    "name": "Løren skole",
+    "address": "Lørenveien 54, 0585 Oslo",
+    "district": "Grünerløkka",
+    "students": "~400",
+    "lat": 59.9309,
+    "lng": 10.7894
+  },
+  {
+    "name": "Sinsen skole",
+    "address": "Lørenveien 42B, 0585 Oslo",
+    "district": "Grünerløkka",
+    "students": "~450",
+    "lat": 59.9345,
+    "lng": 10.7854
+  },
+  {
+    "name": "Lakkegata skole",
+    "address": "Lakkegata 48, 0562 Oslo",
+    "district": "Grünerløkka",
+    "students": "~380",
+    "lat": 59.9233,
+    "lng": 10.7631
+  },
+  {
+    "name": "Sagene skole",
+    "address": "Biermanns gate 2, 0474 Oslo",
+    "district": "Sagene",
+    "students": "~380",
+    "lat": 59.9353,
+    "lng": 10.7573
+  },
+  {
+    "name": "Bjølsen skole",
+    "address": "Moldegata 21, 0445 Oslo",
+    "district": "Sagene",
+    "students": "~320",
+    "lat": 59.9317,
+    "lng": 10.7533
+  },
+  {
+    "name": "Jordal skole",
+    "address": "Ensjøveien 5, 0655 Oslo",
+    "district": "Gamle Oslo",
+    "students": "~550",
+    "lat": 59.9098,
+    "lng": 10.7793
+  },
+  {
+    "name": "Vålerenga skole",
+    "address": "Strømsveien 78, 0663 Oslo",
+    "district": "Gamle Oslo",
+    "students": "~420",
+    "lat": 59.9092,
+    "lng": 10.7930
+  },
+  {
+    "name": "Tøyen skole",
+    "address": "Hagegata 25, 0653 Oslo",
+    "district": "Gamle Oslo",
+    "students": "~380",
+    "lat": 59.9148,
+    "lng": 10.7729
+  },
+  {
+    "name": "Nydalen skole",
+    "address": "Gullhaug Torg 5, 0484 Oslo",
+    "district": "Nordre Aker",
+    "students": "~500",
+    "lat": 59.9500,
+    "lng": 10.7642
+  },
+  {
+    "name": "Grefsen skole",
+    "address": "Kapellveien 62, 0487 Oslo",
+    "district": "Nordre Aker",
+    "students": "~380",
+    "lat": 59.9533,
+    "lng": 10.7812
+  },
+  {
+    "name": "Korsvoll skole",
+    "address": "Gårdbakken 1, 0880 Oslo",
+    "district": "Nordre Aker",
+    "students": "~320",
+    "lat": 59.9663,
+    "lng": 10.7527
+  },
+  {
+    "name": "Kjelsås skole",
+    "address": "Maridalsveien 332, 0881 Oslo",
+    "district": "Nordre Aker",
+    "students": "~360",
+    "lat": 59.9678,
+    "lng": 10.7651
+  },
+  {
+    "name": "Ila skole",
+    "address": "Arendalsgata 7, 0463 Oslo",
+    "district": "St. Hanshaugen",
+    "students": "~290",
+    "lat": 59.9267,
+    "lng": 10.7317
+  },
+  {
+    "name": "Bolteløkka skole",
+    "address": "Sandakerveien 9, 0477 Oslo",
+    "district": "St. Hanshaugen",
+    "students": "~310",
+    "lat": 59.9332,
+    "lng": 10.7492
+  },
+  {
+    "name": "Marienlyst skole",
+    "address": "Marienlystveien 13, 0167 Oslo",
+    "district": "St. Hanshaugen",
+    "students": "~350",
+    "lat": 59.9291,
+    "lng": 10.7253
+  },
+  {
+    "name": "Lambertseter skole",
+    "address": "Lambertseterveien 24, 1154 Oslo",
+    "district": "Nordstrand",
+    "students": "~420",
+    "lat": 59.8681,
+    "lng": 10.8110
+  },
+  {
+    "name": "Nordstrand skole",
+    "address": "Oberst Rodes vei 84, 1165 Oslo",
+    "district": "Nordstrand",
+    "students": "~480",
+    "lat": 59.8653,
+    "lng": 10.7923
+  },
+  {
+    "name": "Munkerud skole",
+    "address": "Munkerudveien 53, 1165 Oslo",
+    "district": "Nordstrand",
+    "students": "~360",
+    "lat": 59.8589,
+    "lng": 10.7982
+  },
+  {
+    "name": "Bekkelaget skole",
+    "address": "Bekkelagsveien 15, 1177 Oslo",
+    "district": "Nordstrand",
+    "students": "~380",
+    "lat": 59.8742,
+    "lng": 10.7853
+  },
+  {
+    "name": "Skullerud skole",
+    "address": "Skullerudveien 45, 1188 Oslo",
+    "district": "Søndre Nordstrand",
+    "students": "~390",
+    "lat": 59.8601,
+    "lng": 10.8350
+  },
+  {
+    "name": "Mortensrud skole",
+    "address": "Helga Vaneks vei 2, 1281 Oslo",
+    "district": "Søndre Nordstrand",
+    "students": "~450",
+    "lat": 59.8453,
+    "lng": 10.8217
+  },
+  {
+    "name": "Holmlia skole",
+    "address": "Holmlia Senter 1, 1255 Oslo",
+    "district": "Søndre Nordstrand",
+    "students": "~520",
+    "lat": 59.8348,
+    "lng": 10.8043
+  },
+  {
+    "name": "Lofsrud skole",
+    "address": "Lofsrudhøgda 5, 1281 Oslo",
+    "district": "Søndre Nordstrand",
+    "students": "~400",
+    "lat": 59.8413,
+    "lng": 10.8277
+  },
+  {
+    "name": "Bjørnholt skole",
+    "address": "Slimeveien 15, 1277 Oslo",
+    "district": "Søndre Nordstrand",
+    "students": "~500",
+    "lat": 59.8217,
+    "lng": 10.7892
+  },
+  {
+    "name": "Bøler skole",
+    "address": "Bølerlia 9, 0691 Oslo",
+    "district": "Alna",
+    "students": "~380",
+    "lat": 59.8834,
+    "lng": 10.8479
+  },
+  {
+    "name": "Trosterud skole",
+    "address": "Trosterudveien 44, 0778 Oslo",
+    "district": "Alna",
+    "students": "~350",
+    "lat": 59.8932,
+    "lng": 10.8703
+  },
+  {
+    "name": "Haugerud skole",
+    "address": "Haugerudveien 37, 0673 Oslo",
+    "district": "Alna",
+    "students": "~420",
+    "lat": 59.8884,
+    "lng": 10.8543
+  },
+  {
+    "name": "Ellingsrud skole",
+    "address": "Ellingsrudveien 31, 1067 Oslo",
+    "district": "Alna",
+    "students": "~360",
+    "lat": 59.8967,
+    "lng": 10.8821
+  },
+  {
+    "name": "Lindeberg skole",
+    "address": "Lindebergåsen 39, 1069 Oslo",
+    "district": "Alna",
+    "students": "~380",
+    "lat": 59.9017,
+    "lng": 10.8747
+  },
+  {
+    "name": "Groruddalen skole",
+    "address": "Ammerudveien 30, 0958 Oslo",
+    "district": "Grorud",
+    "students": "~450",
+    "lat": 59.9584,
+    "lng": 10.8794
+  },
+  {
+    "name": "Rommen skole",
+    "address": "Rommenfaret 2, 0965 Oslo",
+    "district": "Stovner",
+    "students": "~500",
+    "lat": 59.9531,
+    "lng": 10.9127
+  },
+  {
+    "name": "Stovner skole",
+    "address": "Stovner Senter 5, 0985 Oslo",
+    "district": "Stovner",
+    "students": "~480",
+    "lat": 59.9628,
+    "lng": 10.9224
+  },
+  {
+    "name": "Haugenstua skole",
+    "address": "Haugenstuveien 16, 0979 Oslo",
+    "district": "Stovner",
+    "students": "~400",
+    "lat": 59.9553,
+    "lng": 10.8983
+  },
+  {
+    "name": "Vestli skole",
+    "address": "Vestlisvingen 20, 0969 Oslo",
+    "district": "Stovner",
+    "students": "~420",
+    "lat": 59.9632,
+    "lng": 10.9348
+  },
+  {
+    "name": "Klemetsrud skole",
+    "address": "Solfallsveien 10, 1266 Oslo",
+    "district": "Søndre Nordstrand",
+    "students": "~350",
+    "lat": 59.8219,
+    "lng": 10.8474
+  },
+  {
+    "name": "Hersleb skole",
+    "address": "Herslebs gate 28, 0561 Oslo",
+    "district": "Grünerløkka",
+    "students": "~350",
+    "lat": 59.9206,
+    "lng": 10.7600
+  },
+  {
+    "name": "Hasle skole",
+    "address": "Økernveien 128, 0579 Oslo",
+    "district": "Bjerke",
+    "students": "~370",
+    "lat": 59.9276,
+    "lng": 10.7988
+  },
+  {
+    "name": "Tonsenhagen skole",
+    "address": "Tonsenhagen 15, 0587 Oslo",
+    "district": "Bjerke",
+    "students": "~380",
+    "lat": 59.9497,
+    "lng": 10.8127
+  },
+  {
+    "name": "Årvoll skole",
+    "address": "Årvollveien 30, 0590 Oslo",
+    "district": "Bjerke",
+    "students": "~420",
+    "lat": 59.9438,
+    "lng": 10.8084
+  },
+  {
+    "name": "Veitvet skole",
+    "address": "Veitvetveien 62, 0596 Oslo",
+    "district": "Bjerke",
+    "students": "~350",
+    "lat": 59.9468,
+    "lng": 10.8312
+  },
+  {
+    "name": "Oppsal skole",
+    "address": "Oppsalveien 34, 0686 Oslo",
+    "district": "Østensjø",
+    "students": "~430",
+    "lat": 59.8932,
+    "lng": 10.8253
+  },
+  {
+    "name": "Manglerud skole",
+    "address": "Plogveien 22, 0679 Oslo",
+    "district": "Østensjø",
+    "students": "~400",
+    "lat": 59.8922,
+    "lng": 10.8193
+  },
+  {
+    "name": "Abildsø skole",
+    "address": "Enebakkveien 158, 1187 Oslo",
+    "district": "Østensjø",
+    "students": "~350",
+    "lat": 59.8742,
+    "lng": 10.8384
+  },
+  {
+    "name": "Trasop skole",
+    "address": "Tante Ulrikkes vei 19, 0984 Oslo",
+    "district": "Østensjø",
+    "students": "~400",
+    "lat": 59.8814,
+    "lng": 10.8323
+  },
+  {
+    "name": "Lutvann skole",
+    "address": "Lutvannveien 30, 0676 Oslo",
+    "district": "Østensjø",
+    "students": "~370",
+    "lat": 59.8857,
+    "lng": 10.8573
+  },
+  {
+    "name": "Furuset skole",
+    "address": "Furuset Allé 2, 1054 Oslo",
+    "district": "Alna",
+    "students": "~480",
+    "lat": 59.9218,
+    "lng": 10.8873
+  },
+  {
+    "name": "Gran skole",
+    "address": "Granveien 1, 0575 Oslo",
+    "district": "Alna",
+    "students": "~350",
+    "lat": 59.9227,
+    "lng": 10.8647
+  },
+  {
+    "name": "Teisen skole",
+    "address": "Teisenveien 35, 0678 Oslo",
+    "district": "Alna",
+    "students": "~380",
+    "lat": 59.9083,
+    "lng": 10.8281
+  }
+]
