@@ -111,7 +111,7 @@ export default function ProfilePage() {
    const totalAnswered = yesCount + noCount;
 
    return (
-      <main className="min-h-screen bg-zinc-50 dark:bg-black py-12 px-4">
+      <main className="min-h-screen min-w-screen bg-zinc-50 dark:bg-black py-12 px-4">
          <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl font-bold text-center mb-4 text-gray-900 dark:text-white">
                👤 Min Profil
