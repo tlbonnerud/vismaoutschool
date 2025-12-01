@@ -40,12 +40,12 @@ export default function Heading() {
           </Link>
 
           <Link
-            href="/dashboard/chats"
+            href="/dashboard/matchmaking"
             className={`${linkBase} ${
-              pathname === "/dashboard/chats" ? activeLink : inactiveLink
+              pathname === "/dashboard/matchmaking" ? activeLink : inactiveLink
             }`}
           >
-            Chats
+            🎯 Match
           </Link>
 
           <Link
@@ -54,7 +54,7 @@ export default function Heading() {
               pathname === "/dashboard/schools" ? activeLink : inactiveLink
             }`}
           >
-            Schools
+            Skoler
           </Link>
 
           <Link
@@ -64,6 +64,15 @@ export default function Heading() {
             }`}
           >
             Profil
+          </Link>
+
+          <Link
+            href="/survey"
+            className={`${linkBase} ${
+              pathname === "/survey" ? activeLink : inactiveLink
+            }`}
+          >
+            📝 Undersøkelse
           </Link>
 
           {/* Logout Button */}
