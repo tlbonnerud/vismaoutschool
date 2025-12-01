@@ -1,173 +1,147 @@
 'use client'
-import React, { useState } from 'react';
-import Selection from './ui/selection';
+import React from 'react';
+import { useStudent } from '@/app/context/StudentContext';
+import { useRouter } from 'next/navigation';
+
+// Selection component with onChange support
+interface SelectionProps {
+  type: 'yesno' | 'grade';
+  label: string;
+  name: string;
+  value: boolean | null;
+  onChange: (name: string, value: boolean | null) => void;
+}
+
+function SelectionWithValue({ type, label, name, value, onChange }: SelectionProps) {
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const val = e.target.value;
+    if (val === '') {
+      onChange(name, null);
+    } else if (val === 'yes') {
+      onChange(name, true);
+    } else {
+      onChange(name, false);
+    }
+  };
+
+  const selectValue = value === null ? '' : value ? 'yes' : 'no';
+
+  return (
+    <div>
+      <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300" htmlFor={name}>{label}</label>
+      {type === 'yesno' ? (
+        <select 
+          id={name} 
+          name={name} 
+          value={selectValue}
+          onChange={handleChange}
+          className="w-full border border-gray-300 dark:border-gray-600 rounded-md p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+        >
+          <option value="">Velg et alternativ</option>
+          <option value="yes">Ja</option>
+          <option value="no">Nei</option>
+        </select>
+      ) : (
+        <select id={name} name={name} className="w-full border border-gray-300 dark:border-gray-600 rounded-md p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+          <option value="">Velg karakter</option>
+          {[1, 2, 3, 4, 5, 6].map((grade) => (
+            <option key={grade} value={grade}>{grade}</option>
+          ))}
+        </select>
+      )}
+    </div>
+  );
+}
 
 export default function Undersøkelse() {
-  const [elev, setElev] = useState({
-    school: '',
-    likeSchool: null,
-    
-    // Sosialt - nåsituasjon
-    useBreaksOutside: null,
-    sportsInBreaks: null,
-    boardGamesInClass: null,
-    classActivitiesOutside: null,
-    peopleParty: null,
-    partyOpportunity: null,
-    cantinaSocializing: null,
-    teachersEncourageSocial: null,
-    
-    // Sosialt - ønsker
-    wantBreaksOutside: null,
-    wantSportsInBreaks: null,
-    wantBoardGames: null,
-    wantClassTimeOutside: null,
-    wantPartyEnvironment: null,
-    wantToParty: null,
-    wantCantinaSocial: null,
-    wantTeacherActivities: null,
-    wantShopInBreaks: null,
-    preferCenter: null,
-    
-    // Læringsmiljø - nåsituasjon
-    goodLearningEnvironment: null,
-    peopleRaiseHands: null,
-    studentsWork: null,
-    everyoneWantsGoodGrades: null,
-    gradePressure: null,
-    teachersGood: null,
-    canTalkToTeacherAboutGrades: null,
-    canTalkToAdultsAtSchool: null,
-    shamefulBadGrades: null,
-    gymTeachersStrict: null,
-    gymTeacherFocusPerformance: null,
-    
-    // Læringsmiljø - ønsker
-    wantEveryoneToWantSuccess: null,
-    wantPeopleRaiseHands: null,
-    wantStudentsWork: null,
-    wantEveryoneWantGoodGrades: null,
-    wantGradePressure: null,
-    wantGoodTeachers: null,
-    wantTalkToTeacherAboutGrades: null,
-    wantTalkToAdultsAtSchool: null,
-    wantShamefulBadGrades: null,
-    wantStrictGymTeachers: null,
-    wantGymTeacherFocusPerformance: null,
-    
-    // Fysisk
-    hasCantine: null,
-    hasSportsCourt: null,
-    hasSeatingArea: null,
-    shopNearby: null,
-    schoolInCityCenter: null
-  });
+  const { student, updatePreference } = useStudent();
+  const router = useRouter();
 
-  const handleInputChange = (name: string, value: any) => {
-    setElev(prev => ({
-      ...prev,
-      [name]: value
-    }));
+  const handleInputChange = (name: string, value: boolean | string | null) => {
+    updatePreference(name as keyof typeof student, value);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted', elev);
-    
-    // Her kan du sende data til database senere
-    // await sendSurveyData(elev);
+    console.log('Form submitted', student);
+    // Navigate to matchmaking page after submission
+    router.push('/dashboard/matchmaking');
   };
-    return (
+
+  return (
+    <div>
+      <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">📝 Spørreundersøkelse</h1>
+      <p className="text-gray-600 dark:text-gray-300">Her skal du svare på en spørreundersøkelse om deg selv og hva du ønsker i en skole. Svarene dine brukes til å finne skoler som passer deg!</p>
+      
+      <form className="mt-6 space-y-4" onSubmit={handleSubmit}> 
         <div>
-            <h1 className="text-2xl font-bold mb-4">spørre undersøkelse</h1>
-            <p>her skal du svare på en spørreunderskelse om skolen din og deg</p>
-            
-            <form className="mt-6 space-y-4" onSubmit={(e) => {
-                e.preventDefault();
-                // Handle form submission logic here
-                console.log('Form submitted', elev);
-            }}> 
-                <div>
-                    <label className="block text-sm font-medium mb-1" htmlFor="school">Hva heter skolen din?</label>
-                    <input 
-                        type="text" 
-                        id="school" 
-                        name="school" 
-                        value={elev.school}
-                        onChange={(e) => handleInputChange('school', e.target.value)}
-                        className="w-full border border-gray-300 rounded-md p-2" 
-                    />
-                </div>
-                
-                <Selection 
-                    type="yesno" 
-                    label="Liker du skolen din?" 
-                    name="likeSchool" 
-                />
-
-                {/* Sosialt */}
-                <h2 className="text-xl font-semibold mt-8 mb-4">Sosialt</h2>
-                
-                <Selection type="yesno" label="Bruker folk friminutter ute?" name="useBreaksOutside" />
-                <Selection type="yesno" label="Ser du folk eller spiller du selv forball/basket eller lignende i friminutt?" name="sportsInBreaks" />
-                <Selection type="yesno" label="Brettspill i klasserom i friminutt?" name="boardGamesInClass" />
-                <Selection type="yesno" label="Gjør klassen noe felles utenfor skolen?" name="classActivitiesOutside" />
-                <Selection type="yesno" label="Opplever du at folk fester?" name="peopleParty" />
-                <Selection type="yesno" label="Opplever du at de fleste får muligheten til å være på neon fester, om det er fester?" name="partyOpportunity" />
-                <Selection type="yesno" label="Sitter folk i kantina under friminutt som er sosial greie?" name="cantinaSocializing" />
-                <Selection type="yesno" label="Er lærere motiverende til sosiale aktiviter?" name="teachersEncourageSocial" />
-                
-                <Selection type="yesno" label="Ønsker du å bruke friminutter ute?" name="wantBreaksOutside" />
-                <Selection type="yesno" label="Ønsker du å spille basket/forball eller lignende i friminutt?" name="wantSportsInBreaks" />
-                <Selection type="yesno" label="Ønsker du å spille brettspill i klasserom i friminutt?" name="wantBoardGames" />
-                <Selection type="yesno" label="Ønsker du å bruke tid med klassen utenfor skolen?" name="wantClassTimeOutside" />
-                <Selection type="yesno" label="Ønsker festmiljø på skolen?" name="wantPartyEnvironment" />
-                <Selection type="yesno" label="Ønsker du å være på fester?" name="wantToParty" />
-                <Selection type="yesno" label="Ønsker du å spise lunsj og henge med venner/andre i kantina?" name="wantCantinaSocial" />
-                <Selection type="yesno" label="Ønsker du at lærere skal aktivisere klassen med felles aktiviteter?" name="wantTeacherActivities" />
-                <Selection type="yesno" label="Ønsker du å gå på butikken i friminutt?" name="wantShopInBreaks" />
-                <Selection type="yesno" label="Foretrekker du sentrum over nærområde?" name="preferCenter" />
-
-                {/* Læringsmiljø */}
-                <h2 className="text-xl font-semibold mt-8 mb-4">Læringsmiljø</h2>
-                
-                <Selection type="yesno" label="Er læringsmiljøet bra?" name="goodLearningEnvironment" />
-                <Selection type="yesno" label="Rekker folk opp hånda i timen?" name="peopleRaiseHands" />
-                <Selection type="yesno" label="Føler du at elever jobber når lærere ber om det?" name="studentsWork" />
-                <Selection type="yesno" label="Føler du at alle ønsker bra karakterer?" name="everyoneWantsGoodGrades" />
-                <Selection type="yesno" label="Er det karakterpress?" name="gradePressure" />
-                <Selection type="yesno" label="Er lærere flinke?" name="teachersGood" />
-                <Selection type="yesno" label="Føler du at du kan snakke med læreren din om karakterer og mål?" name="canTalkToTeacherAboutGrades" />
-                <Selection type="yesno" label="Føler du at du kan snakke med noen voksne på skolen om du ikke har det så bra?" name="canTalkToAdultsAtSchool" />
-                <Selection type="yesno" label="Føler du at det er kleint eller skamfult å få dårlige karakterer?" name="shamefulBadGrades" />
-                <Selection type="yesno" label="Er gymlærere 'strenge'?" name="gymTeachersStrict" />
-                <Selection type="yesno" label="Er gymlærer opptatt av innsats eller prestering?" name="gymTeacherFocusPerformance" />
-                
-                <Selection type="yesno" label="Vil du at alle skal ønske å være flinke på skolen?" name="wantEveryoneToWantSuccess" />
-                <Selection type="yesno" label="Ønsker du at folk rekker opp hånda i timen?" name="wantPeopleRaiseHands" />
-                <Selection type="yesno" label="Ønsker du at elever jobber når lærere ber om det?" name="wantStudentsWork" />
-                <Selection type="yesno" label="Ønsker du at alle skal ønske bra karakterer?" name="wantEveryoneWantGoodGrades" />
-                <Selection type="yesno" label="Ønsker du karakterpress?" name="wantGradePressure" />
-                <Selection type="yesno" label="Ønsker du at lærere skal være flinke?" name="wantGoodTeachers" />
-                <Selection type="yesno" label="Ønsker du å kunne snakke med læreren din om karakterer og mål?" name="wantTalkToTeacherAboutGrades" />
-                <Selection type="yesno" label="Ønsker du å kunne snakke med noen voksne på skolen om du ikke har det så bra?" name="wantTalkToAdultsAtSchool" />
-                <Selection type="yesno" label="Ønsker du at det skal være kleint eller skamfult å få dårlige karakterer?" name="wantShamefulBadGrades" />
-                <Selection type="yesno" label="Ønsker du at gymlærere skal være 'strenge'?" name="wantStrictGymTeachers" />
-                <Selection type="yesno" label="Ønsker du at gymlærer skal være opptatt av innsats eller prestering?" name="wantGymTeacherFocusPerformance" />
-
-                {/* Fysisk */}
-                <h2 className="text-xl font-semibold mt-8 mb-4">Fysisk</h2>
-                
-                <Selection type="yesno" label="Har dere kantine?" name="hasCantine" />
-                <Selection type="yesno" label="Har dere basket/forball bane?" name="hasSportsCourt" />
-                <Selection type="yesno" label="Har dere plasser å sitte i eventuell skolegård?" name="hasSeatingArea" />
-                <Selection type="yesno" label="Er det butikk i nærområdet?" name="shopNearby" />
-                <Selection type="yesno" label="Er skolen midt i byen?" name="schoolInCityCenter" />
-                
-                <button type="submit" className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-                    Send inn
-                </button>
-            </form>
+          <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300" htmlFor="currentSchool">Hva heter din nåværende skole?</label>
+          <input 
+            type="text" 
+            id="currentSchool" 
+            name="currentSchool" 
+            value={student.currentSchool}
+            onChange={(e) => handleInputChange('currentSchool', e.target.value)}
+            className="w-full border border-gray-300 dark:border-gray-600 rounded-md p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" 
+            placeholder="F.eks. Berg skole"
+          />
         </div>
-    );
+
+        <div>
+          <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300" htmlFor="name">Hva heter du?</label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            value={student.name}
+            onChange={(e) => handleInputChange('name', e.target.value)}
+            className="w-full border border-gray-300 dark:border-gray-600 rounded-md p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" 
+            placeholder="Ditt navn"
+          />
+        </div>
+
+        {/* Sosialt - ønsker */}
+        <h2 className="text-xl font-semibold mt-8 mb-4 text-gray-900 dark:text-white">🎉 Sosialt - Hva ønsker du?</h2>
+        
+        <SelectionWithValue type="yesno" label="Ønsker du å bruke friminutter ute?" name="wantBreaksOutside" value={student.wantBreaksOutside} onChange={handleInputChange} />
+        <SelectionWithValue type="yesno" label="Ønsker du å spille basket/fotball eller lignende i friminutt?" name="wantSportsInBreaks" value={student.wantSportsInBreaks} onChange={handleInputChange} />
+        <SelectionWithValue type="yesno" label="Ønsker du å spille brettspill i klasserom i friminutt?" name="wantBoardGames" value={student.wantBoardGames} onChange={handleInputChange} />
+        <SelectionWithValue type="yesno" label="Ønsker du å bruke tid med klassen utenfor skolen?" name="wantClassTimeOutside" value={student.wantClassTimeOutside} onChange={handleInputChange} />
+        <SelectionWithValue type="yesno" label="Ønsker du festmiljø på skolen?" name="wantPartyEnvironment" value={student.wantPartyEnvironment} onChange={handleInputChange} />
+        <SelectionWithValue type="yesno" label="Ønsker du å være på fester?" name="wantToParty" value={student.wantToParty} onChange={handleInputChange} />
+        <SelectionWithValue type="yesno" label="Ønsker du å spise lunsj og henge med venner i kantina?" name="wantCantinaSocial" value={student.wantCantinaSocial} onChange={handleInputChange} />
+        <SelectionWithValue type="yesno" label="Ønsker du at lærere skal aktivisere klassen med felles aktiviteter?" name="wantTeacherActivities" value={student.wantTeacherActivities} onChange={handleInputChange} />
+        <SelectionWithValue type="yesno" label="Ønsker du å gå på butikken i friminutt?" name="wantShopInBreaks" value={student.wantShopInBreaks} onChange={handleInputChange} />
+        <SelectionWithValue type="yesno" label="Foretrekker du sentrum over nærområde?" name="preferCenter" value={student.preferCenter} onChange={handleInputChange} />
+
+        {/* Læringsmiljø - ønsker */}
+        <h2 className="text-xl font-semibold mt-8 mb-4 text-gray-900 dark:text-white">📚 Læringsmiljø - Hva ønsker du?</h2>
+        
+        <SelectionWithValue type="yesno" label="Vil du at alle skal ønske å være flinke på skolen?" name="wantEveryoneToWantSuccess" value={student.wantEveryoneToWantSuccess} onChange={handleInputChange} />
+        <SelectionWithValue type="yesno" label="Ønsker du at folk rekker opp hånda i timen?" name="wantPeopleRaiseHands" value={student.wantPeopleRaiseHands} onChange={handleInputChange} />
+        <SelectionWithValue type="yesno" label="Ønsker du at elever jobber når lærere ber om det?" name="wantStudentsWork" value={student.wantStudentsWork} onChange={handleInputChange} />
+        <SelectionWithValue type="yesno" label="Ønsker du at alle skal ønske bra karakterer?" name="wantEveryoneWantGoodGrades" value={student.wantEveryoneWantGoodGrades} onChange={handleInputChange} />
+        <SelectionWithValue type="yesno" label="Ønsker du karakterpress?" name="wantGradePressure" value={student.wantGradePressure} onChange={handleInputChange} />
+        <SelectionWithValue type="yesno" label="Ønsker du at lærere skal være flinke?" name="wantGoodTeachers" value={student.wantGoodTeachers} onChange={handleInputChange} />
+        <SelectionWithValue type="yesno" label="Ønsker du å kunne snakke med læreren om karakterer og mål?" name="wantTalkToTeacherAboutGrades" value={student.wantTalkToTeacherAboutGrades} onChange={handleInputChange} />
+        <SelectionWithValue type="yesno" label="Ønsker du å kunne snakke med voksne på skolen om du ikke har det så bra?" name="wantTalkToAdultsAtSchool" value={student.wantTalkToAdultsAtSchool} onChange={handleInputChange} />
+        <SelectionWithValue type="yesno" label="Ønsker du at det skal være kleint eller skamfullt å få dårlige karakterer?" name="wantShamefulBadGrades" value={student.wantShamefulBadGrades} onChange={handleInputChange} />
+        <SelectionWithValue type="yesno" label="Ønsker du at gymlærere skal være 'strenge'?" name="wantStrictGymTeachers" value={student.wantStrictGymTeachers} onChange={handleInputChange} />
+        <SelectionWithValue type="yesno" label="Ønsker du at gymlærer skal fokusere på prestasjon?" name="wantGymTeacherFocusPerformance" value={student.wantGymTeacherFocusPerformance} onChange={handleInputChange} />
+
+        {/* Fysisk - ønsker */}
+        <h2 className="text-xl font-semibold mt-8 mb-4 text-gray-900 dark:text-white">🏫 Fasiliteter - Hva ønsker du?</h2>
+        
+        <SelectionWithValue type="yesno" label="Ønsker du at skolen har kantine?" name="wantCantine" value={student.wantCantine} onChange={handleInputChange} />
+        <SelectionWithValue type="yesno" label="Ønsker du at skolen har basket/fotballbane?" name="wantSportsCourt" value={student.wantSportsCourt} onChange={handleInputChange} />
+        <SelectionWithValue type="yesno" label="Ønsker du sitteplasser i skolegården?" name="wantSeatingArea" value={student.wantSeatingArea} onChange={handleInputChange} />
+        
+        <div className="pt-6 flex gap-4">
+          <button type="submit" className="flex-1 bg-[#2A2958] hover:bg-[#3a3978] text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+            ✨ Se mine skoleanbefalinger
+          </button>
+        </div>
+      </form>
+    </div>
+  );
 }
