@@ -1,5 +1,5 @@
 // This is the layout for the /dashboard route and its sub-routes
-import { StudentProvider } from '@/app/context/StudentContext';
+import { StudentProvider } from '@/app/(dashboard)/(loggedin)/dashboard/schools/context/StudentContext';
 
 export default function DashboardLayout({
    children,

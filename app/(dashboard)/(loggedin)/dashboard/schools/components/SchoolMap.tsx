@@ -31,6 +31,11 @@ const osloSchools: School[] = schoolsData as School[]
 const osloCenter: [number, number] = [59.9139, 10.7522]
 
 export default function SchoolMap() {
+
+   const handleButtonClick = (schoolName: string) => {
+      window.location.href = "/dashboard/schools/skolebytte/"
+   }
+
    return (
       <div className="w-full h-[600px] rounded-lg overflow-hidden shadow-lg">
          <MapContainer
@@ -52,6 +57,9 @@ export default function SchoolMap() {
                            <p><strong>Adresse:</strong> {school.address}</p>
                            <p><strong>Bydel:</strong> {school.district}</p>
                            {school.students && <p><strong>Elever:</strong> {school.students}</p>}
+                           <button
+                              onClick={() => handleButtonClick(school.name)}
+                              className='bg-blue-300 cursor-pointer hover:bg-blue-100 p-2 rounded-2xl w-20'><strong>Bytt Hit</strong></button>
                         </div>
                      </div>
                   </Popup>
