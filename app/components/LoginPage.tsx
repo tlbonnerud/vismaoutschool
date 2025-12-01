@@ -2,20 +2,16 @@
 
 import { loginUser } from '@/lib/login';
 import { useState } from 'react';
-import { getCookie } from '@/utils/cookies';
 
-const LoginPage = () => {
+type LoginPageProps = {
+  onToggleToRegister: () => void;
+};
+
+const LoginPage = ({ onToggleToRegister }: LoginPageProps) => {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
-  const cookie = getCookie('sb-session');
-
-  if (cookie) {
-    window.location.href = '/dashboard';
-    return null;
-  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,13 +44,13 @@ const LoginPage = () => {
   };
 
   return (
-    <main className="w-screen min-h-screen bg-[#2A2958] flex items-center justify-center overflow-x-hidden">
+    <main className="w-screen min-h-screen bg-[#2A2958] flex items-center justify-center">
 
-      {/* DESKTOP FRAME */}
-      <div className="w-[1200px] h-[700px] bg-[#B2F7FF] rounded-[36px] shadow-2xl flex overflow-hidden">
+      <div className="w-[1200px] h-[700px] flex">
 
         {/* LEFT BRAND PANEL */}
-        <div className="w-1/2 bg-[#2A2958] p-14 flex flex-col justify-center">
+        <div className="w-1/2 bg-[#2A2958] p-14 flex flex-col justify-center rounded-l-[35px] shadow-[0_0_60px_rgba(177,247,255,0.45)] relative z-10">
+
           <h1 className="text-5xl font-extrabold text-[#B2F7FF] mb-8">
             Figma Outschool
           </h1>
@@ -68,7 +64,7 @@ const LoginPage = () => {
         </div>
 
         {/* RIGHT LOGIN PANEL */}
-        <div className="w-1/2 bg-white p-14 flex items-center justify-center">
+        <div className="w-1/2 bg-white p-14 flex items-center justify-center rounded-r-[35px] shadow-[0_0_60px_rgba(0,0,0,0.1)]">
           <div className="w-full max-w-md">
 
             <h2 className="text-4xl font-extrabold text-[#2A2958] mb-8 text-center">
@@ -120,6 +116,20 @@ const LoginPage = () => {
                 {isLoading ? 'Logging in...' : 'Login'}
               </button>
             </form>
+
+            {/* ✅ TOGGLE TO REGISTER */}
+            <div className="mt-8 text-center">
+              <p className="text-gray-600 mb-2">
+                Har du ikke bruker?
+              </p>
+              <button
+                type="button"
+                onClick={onToggleToRegister}
+                className="text-blue-600 font-semibold hover:underline cursor-pointer"
+              >
+                Registrer deg her
+              </button>
+            </div>
 
           </div>
         </div>

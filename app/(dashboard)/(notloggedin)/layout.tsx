@@ -14,8 +14,8 @@ export default function NotLoggedInLayout({
    // }
 
    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-         <div className="w-full max-w-md">
+      <div className="min-h-screen min-w-screen flex items-center justify-center bg-gray-50">
+         <div className="w-full">
             {children}
          </div>
       </div>
