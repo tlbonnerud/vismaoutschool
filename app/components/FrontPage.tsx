@@ -40,14 +40,27 @@ const FrontPage = () => {
                   Om oss
                </h2>
 
-               <h3 className="text-lg leading-relaxed text-[#000000] text-center">
-                  Dette er en placeholder-tekst som beskriver organisasjonen, prosjektet
-                  eller teamet deres. Her kan dere skrive om hva dere gjør, hvorfor
-                  dere startet prosjektet, og hva målene deres er fremover.
+               <p className="text-lg leading-relaxed text-[#000000] text-center">
+                  Figma Outschool er en digital plattform som gir elever på ungdomsskolen
+                  muligheten til å oppleve en annen skolehverdag i en kort periode på
+                  <strong> 1–5 dager</strong>. Vi har laget en trygg og strukturert løsning
+                  som gjør det mulig for enkeltpersoner å gjennomføre et midlertidig skolebytte.
                   <br /><br />
-                  Dere kan også legge til mer detaljer, som verdier, visjon, eller hva
-                  brukerne kan forvente når de utforsker tjenesten deres.
-               </h3>
+                  Gjennom nettsiden matcher vi elever fra ulike skoler som ønsker å bytte
+                  skole med hverandre i en kort periode. Byttet skjer alltid i samarbeid
+                  med <strong>rådgivere og skoler</strong>, slik at både elevens trygghet og
+                  skolegangen blir ivaretatt på en god måte.
+                  <br /><br />
+                  Formålet med prosjektet er å gi ungdom muligheten til å bli kjent med nye
+                  miljøer og læringsmåter, utvikle seg sosialt, se hverdagen fra et nytt
+                  perspektiv og få større forståelse for hvordan andre har det på skolen.
+                  <br /><br />
+                  All kommunikasjon mellom elev, rådgiver og skole foregår via plattformen vår,
+                  slik at prosessen er <strong>oversiktlig, trygg og enkel for alle parter</strong>.
+                  <br /><br />
+                  Figma Outschool er laget <strong>av ungdom, for ungdom</strong>, med fokus på
+                  trygghet, utvikling og nye opplevelser.
+               </p>
             </div>
 
          </div>
