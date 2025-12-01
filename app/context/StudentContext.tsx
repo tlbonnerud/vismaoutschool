@@ -75,13 +75,28 @@ const defaultStudent: StudentPreferences = {
   wantSeatingArea: null,
 };
 
+// Keys that are metadata and should not be considered as survey responses
+const METADATA_KEYS: (keyof StudentPreferences)[] = ['name', 'currentSchool'];
+
+// Helper function to validate parsed data has expected structure
+function isValidStudentPreferences(data: unknown): data is StudentPreferences {
+  if (typeof data !== 'object' || data === null) return false;
+  const obj = data as Record<string, unknown>;
+  // Check for required fields
+  return typeof obj.name === 'string' && typeof obj.currentSchool === 'string';
+}
+
 // Helper function to get initial state from localStorage
 function getInitialStudent(): StudentPreferences {
   if (typeof window !== 'undefined') {
     const saved = localStorage.getItem('studentProfile');
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        if (isValidStudentPreferences(parsed)) {
+          return parsed;
+        }
+        console.warn('Stored student profile has invalid structure, using defaults');
       } catch (e) {
         console.error('Failed to parse saved student profile', e);
       }
@@ -114,9 +129,9 @@ export function StudentProvider({ children }: { children: ReactNode }) {
     }));
   };
 
-  // Check if at least some preferences have been set
+  // Check if at least some preferences have been set (excluding metadata fields)
   const hasCompletedSurvey = Object.entries(student).some(
-    ([key, value]) => key !== 'name' && key !== 'currentSchool' && value !== null
+    ([key, value]) => !METADATA_KEYS.includes(key as keyof StudentPreferences) && value !== null
   );
 
   return (

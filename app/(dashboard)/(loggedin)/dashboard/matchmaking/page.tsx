@@ -4,6 +4,10 @@ import { useStudent, StudentPreferences } from '@/app/context/StudentContext';
 import { schoolsWithAttributes, School, SchoolAttributes } from '@/app/data/schoolsWithAttributes';
 import Link from 'next/link';
 
+// Constants for matchmaking configuration
+const DEFAULT_MATCH_SCORE = 50; // Score when no preferences are set
+const MAX_DISPLAYED_MATCHES = 4; // Number of top schools to display
+
 // Map student preferences to school attributes for matching
 function calculateMatchScore(student: StudentPreferences, school: School): number {
   const attrs = school.attributes;
@@ -52,7 +56,7 @@ function calculateMatchScore(student: StudentPreferences, school: School): numbe
   addScore(student.preferCenter, attrs.schoolInCityCenter, 1);
 
   // Calculate percentage match
-  if (totalWeight === 0) return 50; // Default score if no preferences
+  if (totalWeight === 0) return DEFAULT_MATCH_SCORE;
   return (score / totalWeight) * 100;
 }
 
@@ -109,10 +113,10 @@ export default function MatchmakingPage() {
     topMatches: getTopMatches(student, school.attributes)
   }));
 
-  // Sort by match score and take top 4
+  // Sort by match score and take top schools
   const topSchools = [...schoolsWithScores]
     .sort((a, b) => b.matchScore - a.matchScore)
-    .slice(0, 4);
+    .slice(0, MAX_DISPLAYED_MATCHES);
 
   return (
     <main className="min-h-screen bg-zinc-50 dark:bg-black py-12 px-4">

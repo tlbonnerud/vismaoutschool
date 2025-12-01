@@ -1,35 +1,60 @@
 // School data with attributes derived from student surveys
 // These represent aggregated responses from multiple students at each school
+// All numeric values are on a 0-1 scale representing the percentage of students who agree
 
 export interface SchoolAttributes {
-  // Sosialt - current state from surveys
-  useBreaksOutside: number;      // 0-1 scale, percentage of students who say yes
+  // Sosialt (Social) - current state from surveys
+  /** Percentage of students who use breaks outside (0-1 scale) */
+  useBreaksOutside: number;
+  /** Percentage of students who play sports during breaks (0-1 scale) */
   sportsInBreaks: number;
+  /** Percentage of students who play board games in class during breaks (0-1 scale) */
   boardGamesInClass: number;
+  /** Percentage of students who do class activities outside school (0-1 scale) */
   classActivitiesOutside: number;
+  /** Percentage of students who report party culture exists (0-1 scale) */
   peopleParty: number;
+  /** Percentage of students who get party invitations (0-1 scale) */
   partyOpportunity: number;
+  /** Percentage of students who socialize in the cafeteria (0-1 scale) */
   cantinaSocializing: number;
+  /** Percentage of students who say teachers encourage social activities (0-1 scale) */
   teachersEncourageSocial: number;
 
-  // Læringsmiljø - current state from surveys
+  // Læringsmiljø (Learning Environment) - current state from surveys
+  /** Percentage of students who rate learning environment as good (0-1 scale) */
   goodLearningEnvironment: number;
+  /** Percentage of students who say people raise hands in class (0-1 scale) */
   peopleRaiseHands: number;
+  /** Percentage of students who say students work when asked (0-1 scale) */
   studentsWork: number;
+  /** Percentage of students who say everyone wants good grades (0-1 scale) */
   everyoneWantsGoodGrades: number;
+  /** Percentage of students who report grade pressure (0-1 scale) */
   gradePressure: number;
+  /** Percentage of students who rate teachers as good (0-1 scale) */
   teachersGood: number;
+  /** Percentage of students who can talk to teachers about grades (0-1 scale) */
   canTalkToTeacherAboutGrades: number;
+  /** Percentage of students who can talk to adults at school about problems (0-1 scale) */
   canTalkToAdultsAtSchool: number;
+  /** Percentage of students who find bad grades shameful (0-1 scale) */
   shamefulBadGrades: number;
+  /** Percentage of students who say gym teachers are strict (0-1 scale) */
   gymTeachersStrict: number;
+  /** Percentage of students who say gym teachers focus on performance (0-1 scale) */
   gymTeacherFocusPerformance: number;
 
-  // Fysisk
+  // Fysisk (Physical Facilities)
+  /** Percentage of students who confirm school has a cafeteria (0-1 scale) */
   hasCantine: number;
+  /** Percentage of students who confirm school has sports courts (0-1 scale) */
   hasSportsCourt: number;
+  /** Percentage of students who confirm school has seating areas (0-1 scale) */
   hasSeatingArea: number;
+  /** Percentage of students who say shops are nearby (0-1 scale) */
   shopNearby: number;
+  /** Percentage of students who say school is in city center (0-1 scale) */
   schoolInCityCenter: number;
 }
 

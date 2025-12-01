@@ -1,6 +1,6 @@
 'use client'
 
-import { useStudent } from '@/app/context/StudentContext';
+import { useStudent, StudentPreferences } from '@/app/context/StudentContext';
 import Link from 'next/link';
 
 // Helper to display attribute names in Norwegian
@@ -31,11 +31,16 @@ const attributeLabels: Record<string, string> = {
   wantSeatingArea: 'Sitteplasser i skolegård',
 };
 
+// Type-safe helper to get preference value
+function getPreferenceValue(student: StudentPreferences, key: keyof StudentPreferences): boolean | string | null {
+  return student[key];
+}
+
 export default function ProfilePage() {
   const { student, hasCompletedSurvey } = useStudent();
 
   // Group preferences
-  const socialPrefs = [
+  const socialPrefs: (keyof StudentPreferences)[] = [
     'wantBreaksOutside',
     'wantSportsInBreaks',
     'wantBoardGames',
@@ -48,7 +53,7 @@ export default function ProfilePage() {
     'preferCenter',
   ];
 
-  const learningPrefs = [
+  const learningPrefs: (keyof StudentPreferences)[] = [
     'wantEveryoneToWantSuccess',
     'wantPeopleRaiseHands',
     'wantStudentsWork',
@@ -62,15 +67,14 @@ export default function ProfilePage() {
     'wantGymTeacherFocusPerformance',
   ];
 
-  const physicalPrefs = [
+  const physicalPrefs: (keyof StudentPreferences)[] = [
     'wantCantine',
     'wantSportsCourt',
     'wantSeatingArea',
   ];
 
-  const renderPreferences = (keys: string[], title: string, emoji: string) => {
-    const studentRecord = student as unknown as Record<string, unknown>;
-    const filteredKeys = keys.filter(key => studentRecord[key] !== null);
+  const renderPreferences = (keys: (keyof StudentPreferences)[], title: string, emoji: string) => {
+    const filteredKeys = keys.filter(key => getPreferenceValue(student, key) !== null);
     
     if (filteredKeys.length === 0) return null;
 
@@ -81,7 +85,7 @@ export default function ProfilePage() {
         </h3>
         <div className="flex flex-wrap gap-2">
           {filteredKeys.map(key => {
-            const value = studentRecord[key];
+            const value = getPreferenceValue(student, key);
             const isPositive = value === true;
             return (
               <span
@@ -102,10 +106,9 @@ export default function ProfilePage() {
   };
 
   // Count yes/no preferences
-  const studentRecord = student as unknown as Record<string, unknown>;
   const allPrefs = [...socialPrefs, ...learningPrefs, ...physicalPrefs];
-  const yesCount = allPrefs.filter(key => studentRecord[key] === true).length;
-  const noCount = allPrefs.filter(key => studentRecord[key] === false).length;
+  const yesCount = allPrefs.filter(key => getPreferenceValue(student, key) === true).length;
+  const noCount = allPrefs.filter(key => getPreferenceValue(student, key) === false).length;
   const totalAnswered = yesCount + noCount;
 
   return (
