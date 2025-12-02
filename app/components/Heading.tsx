@@ -31,14 +31,6 @@ export default function Heading() {
             <div className="flex gap-3 text-sm sm:text-base">
 
                <Link
-                  href="/"
-                  className={`${linkBase} ${pathname === "/" ? activeLink : inactiveLink
-                     }`}
-               >
-                  Home
-               </Link>
-
-               <Link
                   href="/dashboard/matchmaking"
                   className={`${linkBase} ${pathname === "/dashboard/matchmaking" ? activeLink : inactiveLink
                      }`}
